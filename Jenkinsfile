@@ -19,7 +19,7 @@ pipeline {
             git(
                url: 'git@github.com:ochoadevops/jenkins-essential-app-form.git',
                credentialsId: 'jenkins-essentials-app-form',
-               branch: 'master'
+               branch: 'main'
             )
 
             script {
