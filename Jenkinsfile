@@ -55,7 +55,7 @@ pipeline {
       stage('SonarQube Analysis') {
             steps {
                script {
-                  withEnv(['MVN_HOME=$mvnHome']) {
+                  withEnv(["MVN_HOME=$mvnHome"]) {
                      
                      withSonarQubeEnv('SonarQube'){
                         sh '"$MVN_HOME/bin/mvn" clean package sonar:sonar'
@@ -67,7 +67,7 @@ pipeline {
           stage("Quality Gate") {
             steps {
                script {
-                   withEnv(['MVN_HOME=$mvnHome']) 
+                   withEnv(["MVN_HOME=$mvnHome"])
                   {
                  
                 waitForQualityGate abortPipeline: true
