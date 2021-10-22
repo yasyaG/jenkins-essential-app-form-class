@@ -44,7 +44,6 @@ pipeline {
                }
             }
          }
-      }
 
       stage('Test Results') {
          steps {
@@ -53,7 +52,29 @@ pipeline {
          }
       }
 
-
+      stage('SonarQube Analysis') {
+            steps {
+               script {
+                  withEnv(['MVN_HOME=$mvnHome']) {
+                     
+                     withSonarQubeEnv('SonarQube'){
+                        sh '"$MVN_HOME/bin/mvn" clean package sonar:sonar'
+              }
+            }
+          }
+        }
+      }
+          stage("Quality Gate") {
+            steps {
+               script {
+                   withEnv(['MVN_HOME=$mvnHome']) 
+                  {
+                 
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+        }
 
       stage('Setup File Properties') {
          steps {
